@@ -1,4 +1,9 @@
 ---
+- debug: 
+    var: openshift_use_crio_only
+
+- debug:
+    var: docker_service_status_changed
 
 - name: restart container runtime
   systemd:
