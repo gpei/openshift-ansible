@@ -8,6 +8,12 @@
   command: "restorecon -R /var/lib/containers/"
   changed_when: false
 
+- debug:
+    var: openshift_use_crio_only
+
+- debug:
+    var: docker_service_status_changed
+
 - meta: flush_handlers
 
 # This needs to run after docker is restarted to account for proxy settings.
