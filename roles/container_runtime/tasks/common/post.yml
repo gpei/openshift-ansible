@@ -8,6 +8,19 @@
   command: "restorecon -R /var/lib/containers/"
   changed_when: false
 
+- name: restart container runtime
+  systemd:
+    name: docker
+    state: restarted
+    daemon_reload: yes
+  register: r_docker_restart_docker_result
+  until: not (r_docker_restart_docker_result is failed)
+  retries: 3
+  delay: 30
+  when:
+  - not docker_service_status_changed | default(false) | bool
+  - not openshift_use_crio_only 
+
 - meta: flush_handlers
 
 # This needs to run after docker is restarted to account for proxy settings.
