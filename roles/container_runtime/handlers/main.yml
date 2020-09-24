@@ -11,7 +11,7 @@
   delay: 30
   when:
   - not docker_service_status_changed | default(false) | bool
-  - not openshift_use_crio_only
+  - not openshift_use_crio_only | bool
 
 - name: restart udev
   systemd:
